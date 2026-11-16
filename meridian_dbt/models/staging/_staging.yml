@@ -1,0 +1,12 @@
+version: 2
+
+models:
+  - name: _example__stg_aircraft
+    description: >
+      Reference staging model. Shows the house staging convention:
+      source CTE, renamed CTE, final SELECT with no logic.
+      Attendees author stg_airports, stg_schedules, stg_flights,
+      stg_maintenance_events, stg_aviation_bulletins following this shape.
+    columns:
+      - name: aircraft_id
+        tests: [not_null, unique]

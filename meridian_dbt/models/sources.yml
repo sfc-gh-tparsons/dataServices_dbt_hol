@@ -1,0 +1,42 @@
+version: 2
+
+sources:
+  - name: raw
+    description: Raw Meridian Air operational data, populated by 00_setup_data.sql.
+    database: "{{ env_var('DBT_DATABASE') }}"
+    schema: RAW
+    tables:
+      - name: aircraft
+        description: One row per aircraft in the Meridian fleet.
+        columns:
+          - name: aircraft_id
+            tests: [not_null, unique]
+      - name: airports
+        description: Airport reference data (IATA, ICAO, city, country, timezone).
+        columns:
+          - name: airport_id
+            tests: [not_null, unique]
+          - name: iata_code
+            tests: [not_null]
+      - name: schedules
+        description: Planned flights (slow-change reference).
+        columns:
+          - name: schedule_id
+            tests: [not_null, unique]
+      - name: flights
+        description: Actual flight events, last 180 days.
+        columns:
+          - name: flight_id
+            tests: [not_null, unique]
+          - name: scheduled_departure_ts
+            tests: [not_null]
+      - name: maintenance_events
+        description: Per-aircraft maintenance events; snapshot target.
+        columns:
+          - name: event_id
+            tests: [not_null, unique]
+      - name: aviation_bulletins
+        description: Free-text NOTAM-style bulletins for AI enrichment.
+        columns:
+          - name: bulletin_id
+            tests: [not_null, unique]
