@@ -1,0 +1,11 @@
+# dbt profile used by dbt Projects on Snowflake.
+# The Snowflake-hosted runtime picks up the session's account / user / role / warehouse.
+# Only database and schema need to be set here, and they are driven by env.yml.
+meridian:
+  target: dev
+  outputs:
+    dev:
+      type: snowflake
+      database: "{{ env_var('DBT_DATABASE') }}"
+      schema:   "{{ env_var('DBT_SCHEMA', 'ANALYTICS') }}"
+      threads: 4

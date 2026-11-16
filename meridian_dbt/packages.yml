@@ -1,0 +1,6 @@
+# Intentionally empty. No external packages required for this lab.
+# If attendees want to add dbt_utils, uncomment:
+#
+# packages:
+#   - package: dbt-labs/dbt_utils
+#     version: 1.3.0
